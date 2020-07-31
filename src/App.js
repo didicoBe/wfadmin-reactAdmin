@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Admin, Resource,ListGuesser  } from 'react-admin';
+import { Orcamento } from './pages/orcamento';
+import Dash  from "./pages/dash";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+import './style.css'
+
+//dados api
+import dataProvider from "./data";
+
+//autenticação e login
+import authProvider from './authProvider';
+
+//tradução
+import ptBrMessages from 'ra-language-pt-br';
+import polyglotI18nProvider from 'ra-i18n-polyglot';
+const i18nProvider = polyglotI18nProvider(() => ptBrMessages, 'pt-br');
+
+
+
+
+//app
+const App = () => (
+      <Admin dashboard={Dash} dataProvider={dataProvider} authProvider={authProvider}  i18nProvider={i18nProvider} locale="pt-br">
+          <Resource name="orcamento" list={Orcamento}  />
+          <Resource name="posts" list={ListGuesser}  />
+      </Admin>
   );
-}
 
-export default App;
+  export default App;
